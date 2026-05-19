@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>LeigosCookie · Sobreviva na Cozinha</title>
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header__container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="LeigosCookie" width="48" height="48" style="object-fit: contain;">
+                <span class="logo__text">Leigos<span class="logo__accent">Cookie</span></span>
+            </a>
+            
+            <nav class="nav" id="mainNav">
+                <button class="nav__toggle" id="navToggle" aria-label="Menu">
+                    <span class="nav__hamburger"></span>
+                </button>
+                <ul class="nav__menu" id="navMenu">
+                    <li><a href="index.html" class="nav__link nav__link--active">Início</a></li>
+                    <li><a href="receitas.html" class="nav__link">Receitas</a></li>
+                    <li><a href="glossario.html" class="nav__link">Glossário</a></li>
+                    <li><a href="primeiros-socorros.html" class="nav__link nav__link--emergency">🚑 SOS</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="container">
+                <h1 class="hero__title">
+                    Você não sabe cozinhar.<br>
+                    <span class="hero__title--accent">A gente resolve.</span>
+                </h1>
+                <p class="hero__subtitle">
+                    Sem julgamentos. Sem termos técnicos. Sem vergonha.
+                </p>
+                
+                <!-- BOTÃO DE EMERGÊNCIA - MODO PÂNICO -->
+                <div class="hero__actions">
+                    <a href="receitas.html?modo=panico" class="btn btn--primary btn--large">
+                        🍳 MODO SOBREVIVÊNCIA
+                    </a>
+                    <a href="#categorias" class="btn btn--outline btn--large">
+                        Ver Categorias
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORIAS RÁPIDAS -->
+        <section class="categories" id="categorias">
+            <div class="container">
+                <h2 class="section-title">Escolha sua missão</h2>
+                
+                <div class="category-grid">
+                    <a href="receitas.html?categoria=5ingredientes" class="category-card">
+                        <div class="category-card__emoji">5️⃣</div>
+                        <h3 class="category-card__title">5 Ingredientes ou Menos</h3>
+                        <p class="category-card__desc">Você só tem arroz, ovo e vergonha na cara? Comece aqui.</p>
+                    </a>
+                    
+                    <a href="receitas.html?categoria=panelaunica" class="category-card">
+                        <div class="category-card__emoji">🍲</div>
+                        <h3 class="category-card__title">Panela Única</h3>
+                        <p class="category-card__desc">Porque lavar louça é castigo. Uma panela resolve tudo.</p>
+                    </a>
+                    
+                    <a href="receitas.html?categoria=impossivelerrar" class="category-card">
+                        <div class="category-card__emoji">🎯</div>
+                        <h3 class="category-card__title">Impossível de Errar</h3>
+                        <p class="category-card__desc">Se você errar essa, a culpa é do fogão. Garantido.</p>
+                    </a>
+                    
+                    <a href="primeiros-socorros.html" class="category-card category-card--emergency">
+                        <div class="category-card__emoji">🚨</div>
+                        <h3 class="category-card__title">Estragou o Arroz?</h3>
+                        <p class="category-card__desc">Queimou? Salgou demais? Sem gosto? Clique aqui AGORA.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONVERSOR DE LEIGO PARA HUMANO -->
+        <section class="converter">
+            <div class="container">
+                <div class="converter__box">
+                    <h2 class="converter__title">O Conversor de Leigo para Humano</h2>
+                    <p class="converter__subtitle">Digite o termo misterioso que apareceu na receita:</p>
+                    
+                    <div class="converter__search">
+                        <input type="text" 
+                               id="termoInput" 
+                               class="converter__input" 
+                               placeholder="Ex: refogar, uma pitada, fogo baixo..."
+                               autocomplete="off">
+                        <button id="buscarTermo" class="btn btn--primary">Traduzir</button>
+                    </div>
+                    
+                    <div id="resultadoConversor" class="converter__result hidden">
+                        <!-- Resultado aparece aqui via JavaScript -->
+                    </div>
+                    
+                    <div class="converter__popular">
+                        <span class="converter__popular-label">Dúvidas comuns:</span>
+                        <button class="converter__chip" data-termo="uma pitada">Uma pitada</button>
+                        <button class="converter__chip" data-termo="refogar">Refogar</button>
+                        <button class="converter__chip" data-termo="fogo baixo">Fogo baixo</button>
+                        <button class="converter__chip" data-termo="ponto de fio">Ponto de fio</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DESTAQUE: RECEITA DO DIA -->
+        <section class="featured-recipe">
+            <div class="container">
+                <div class="featured-recipe__header">
+                    <h2 class="section-title">🍝 Receita do Dia</h2>
+                    <span class="badge badge--easy">NÍVEL: SOBREVIVENTE</span>
+                </div>
+                
+                <div class="recipe-preview" id="receitaDestaque">
+                    <!-- Conteúdo carregado via JavaScript -->
+                </div>
+                
+                <div class="featured-recipe__action">
+                    <a href="receitas.html?id=1" class="btn btn--primary btn--large">
+                        Ver Receita Completa
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <span class="footer__logo">LeigosCookie</span>
+                    <p class="footer__tagline">Todo mundo começa de algum lugar. O seu lugar é aqui.</p>
+                </div>
+                
+                <div class="footer__links">
+                    <a href="glossario.html">Glossário Visual</a>
+                    <a href="primeiros-socorros.html">Primeiros Socorros</a>
+                    <a href="#" id="limparHistorico">Limpar Histórico</a>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p>🍪 Feito para quem queima água.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/timer.js"></script>
+    <script src="js/checklist.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

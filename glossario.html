@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Glossário Visual · LeigosCookie</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🍪%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header__container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="LeigosCookie" width="48" height="48" style="object-fit: contain;">
+                <span class="logo__text">Leigos<span class="logo__accent">Cookie</span></span>
+            </a>
+            
+            <nav class="nav" id="mainNav">
+                <button class="nav__toggle" id="navToggle" aria-label="Menu">
+                    <span class="nav__hamburger"></span>
+                </button>
+                <ul class="nav__menu" id="navMenu">
+                    <li><a href="index.html" class="nav__link">Início</a></li>
+                    <li><a href="receitas.html" class="nav__link">Receitas</a></li>
+                    <li><a href="glossario.html" class="nav__link nav__link--active">Glossário</a></li>
+                    <li><a href="primeiros-socorros.html" class="nav__link nav__link--emergency">🚑 SOS</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- CABEÇALHO DA PÁGINA -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-header__title">📚 Glossário do Leigo</h1>
+                <p class="page-header__subtitle">Traduzindo "chefês" para "sobrevivente". Passe o mouse ou clique nos termos.</p>
+            </div>
+        </section>
+
+        <!-- CONVERSOR INTERATIVO (Destaque) -->
+        <section class="glossary-converter">
+            <div class="container">
+                <div class="glossary-converter__box">
+                    <h2 class="glossary-converter__title">🔍 O que você não entendeu?</h2>
+                    <p class="glossary-converter__subtitle">Digite o termo misterioso que apareceu na receita:</p>
+                    
+                    <div class="glossary-converter__search">
+                        <input type="text" 
+                               id="glossarioInput" 
+                               class="glossary-converter__input" 
+                               placeholder="Ex: refogar, uma pitada, al dente, julienne..."
+                               autocomplete="off">
+                        <button id="glossarioBuscar" class="btn btn--primary btn--large">Traduzir</button>
+                    </div>
+                    
+                    <div id="glossarioResultado" class="glossary-converter__result hidden">
+                        <!-- Resultado da busca aparece aqui -->
+                    </div>
+                    
+                    <div class="glossary-converter__popular">
+                        <span class="glossary-converter__popular-label">Dúvidas comuns:</span>
+                        <div class="glossary-converter__chips">
+                            <button class="glossary-chip" data-termo="uma pitada">Uma pitada</button>
+                            <button class="glossary-chip" data-termo="refogar">Refogar</button>
+                            <button class="glossary-chip" data-termo="al dente">Al Dente</button>
+                            <button class="glossary-chip" data-termo="fogo baixo">Fogo Baixo</button>
+                            <button class="glossary-chip" data-termo="ponto de fio">Ponto de Fio</button>
+                            <button class="glossary-chip" data-termo="branquear">Branquear</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LISTA COMPLETA DO GLOSSÁRIO -->
+        <section class="glossary-list">
+            <div class="container">
+                <h2 class="section-title">📖 Dicionário Completo</h2>
+                <p class="section-subtitle">De A a Z (quase). Tudo que você precisa para não passar vergonha.</p>
+                
+                <!-- FILTRO POR CATEGORIA -->
+                <div class="glossary-filters">
+                    <button class="filter-chip active" data-filter="todos">Todos</button>
+                    <button class="filter-chip" data-filter="basico">Básico</button>
+                    <button class="filter-chip" data-filter="intermediario">Intermediário</button>
+                    <button class="filter-chip" data-filter="avancado">Avançado</button>
+                    <button class="filter-chip" data-filter="cortes">Cortes</button>
+                    <button class="filter-chip" data-filter="tecnicas">Técnicas</button>
+                </div>
+                
+                <!-- GRID DO GLOSSÁRIO -->
+                <div class="glossary-grid" id="glossaryGrid">
+                    <!-- Gerado via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO DE CORTES VISUAIS -->
+        <section class="glossary-cuts">
+            <div class="container">
+                <h2 class="section-title">🔪 Guia Visual de Cortes</h2>
+                <p class="section-subtitle">Porque "picar" e "cortar em cubinhos" são coisas diferentes (aparentemente).</p>
+                
+                <div class="cuts-grid" id="cutsGrid">
+                    <!-- Gerado via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO DE TÉCNICAS EXPLICADAS -->
+        <section class="glossary-techniques">
+            <div class="container">
+                <h2 class="section-title">🎓 Técnicas que Todo Mundo Deveria Saber</h2>
+                <p class="section-subtitle">Mas ninguém nunca ensinou.</p>
+                
+                <div class="techniques-list" id="techniquesList">
+                    <!-- Gerado via JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL DE DETALHES -->
+    <div class="modal" id="termoModal">
+        <div class="modal__overlay"></div>
+        <div class="modal__content modal__content--glossary">
+            <button class="modal__close" id="fecharModal">✕</button>
+            
+            <div class="modal__body" id="modalBody">
+                <!-- Conteúdo dinâmico do termo -->
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <span class="footer__logo">LeigosCookie</span>
+                    <p class="footer__tagline">Todo mundo começa de algum lugar. O seu lugar é aqui.</p>
+                </div>
+                
+                <div class="footer__links">
+                    <a href="receitas.html">Receitas</a>
+                    <a href="primeiros-socorros.html">Primeiros Socorros</a>
+                    <a href="index.html">Início</a>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p>🍪 Feito para quem queima água. (Agora com dicionário.)</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script>
+        // ============================================
+        // GLOSSARIO.HTML · BANCO DE DADOS COMPLETO
+        // ============================================
+        
+        // Dados completos do glossário
+        const glossarioCompleto = [
+            // === BÁSICO ===
+            {
+                termo: "Uma Pitada",
+                explicacao: "Pegue sal (ou tempero) com as pontas de TRÊS dedos (polegar, indicador e médio). A quantidade que grudar é uma pitada. NÃO é um punhado. Não é a mão inteira.",
+                categoria: "basico",
+                emoji: "🤏",
+                exemplo: "Tempere com uma pitada de sal.",
+                dicaExtra: "Se a receita pede 'uma pitada generosa', use os 5 dedos, mas ainda assim só as pontas."
+            },
+            {
+                termo: "Refogar",
+                explicacao: "Coloque um fio de óleo ou manteiga na panela quente. Jogue cebola picada (ou alho). Mexa até ficar transparente e cheirosa. Isso é refogar. É a base de quase tudo na cozinha brasileira.",
+                categoria: "basico",
+                emoji: "🧅",
+                exemplo: "Refogue a cebola e o alho antes de adicionar o arroz.",
+                dicaExtra: "Cuidado: alho queima rápido e fica amargo. Coloque o alho DEPOIS da cebola."
+            },
+            {
+                termo: "Al Dente",
+                explicacao: "Macarrão cozido por fora, mas ainda firme por dentro. Morda um fio: se estiver duro no meio, tá al dente. Se estiver mole, virou papa de bebê. O tempo da embalagem geralmente acerta.",
+                categoria: "basico",
+                emoji: "🍝",
+                exemplo: "Cozinhe o macarrão até ficar al dente.",
+                dicaExtra: "Sempre prove um fio 1 minuto antes do tempo indicado na embalagem."
+            },
+            {
+                termo: "Fogo Baixo / Médio / Alto",
+                explicacao: "Fogo BAIXO: a menor chama do fogão (ou temperatura mais baixa no elétrico). Fogo MÉDIO: metade da potência. Fogo ALTO: chama máxima. Simples assim. Não tem mistério.",
+                categoria: "basico",
+                emoji: "🔥",
+                exemplo: "Cozinhe em fogo baixo por 20 minutos.",
+                dicaExtra: "No fogão elétrico, fogo baixo é 1-3, médio é 4-6, alto é 7-10."
+            },
+            {
+                termo: "Untar a Forma",
+                explicacao: "Passar manteiga, óleo ou margarina em TODA a superfície interna da forma para a comida não grudar. Depois polvilhe farinha (para bolos) ou não (para carnes). Se pular essa etapa, prepare-se para raspar.",
+                categoria: "basico",
+                emoji: "🧈",
+                exemplo: "Unte a forma com manteiga e farinha.",
+                dicaExtra: "Use papel manteiga. É mais fácil e nunca gruda. Sério."
+            },
+            
+            // === INTERMEDIÁRIO ===
+            {
+                termo: "Ponto de Fio",
+                explicacao: "Quando você levanta a colher e o líquido (calda, brigadeiro) cai formando um 'fio' contínuo e espesso, como mel. Para brigadeiro de colher, é ponto de fio. Para enrolar, precisa do ponto de brigadeiro (mais firme).",
+                categoria: "intermediario",
+                emoji: "🍯",
+                exemplo: "Cozinhe até atingir o ponto de fio.",
+                dicaExtra: "Passe a colher no meio da panela. Se o doce demorar a se juntar novamente, está no ponto."
+            },
+            {
+                termo: "Branquear",
+                explicacao: "Jogar o alimento (geralmente legumes) em água fervente por 1-2 minutos e depois imediatamente em água GELADA (choque térmico). Isso mantém a cor viva, textura crocante e facilita descascar tomates.",
+                categoria: "intermediario",
+                emoji: "🥦",
+                exemplo: "Branqueie os brócolis antes de congelar.",
+                dicaExtra: "Prepare uma tigela com água e gelo ANTES de começar. O choque térmico precisa ser rápido."
+            },
+            {
+                termo: "Reduzir",
+                explicacao: "Deixar o líquido (molho, caldo) ferver sem tampa para evaporar a água. O sabor concentra e o volume diminui. Fica mais grosso e mais gostoso. Pode demorar, mas vale a pena.",
+                categoria: "intermediario",
+                emoji: "🍲",
+                exemplo: "Reduza o molho pela metade.",
+                dicaExtra: "Nunca tampe a panela quando estiver reduzindo. O vapor precisa escapar."
+            },
+            {
+                termo: "Descansar a Massa",
+                explicacao: "Depois de sovar a massa (pão, pizza, torta), deixe ela parada coberta com um pano por 30-60 minutos. O glúten relaxa e a massa fica mais fácil de abrir. Não pule essa etapa.",
+                categoria: "intermediario",
+                emoji: "🍞",
+                exemplo: "Deixe a massa descansar por 1 hora.",
+                dicaExtra: "Cubra com pano úmido para não ressecar a superfície."
+            },
+            
+            // === AVANÇADO ===
+            {
+                termo: "Ponto de Brigadeiro (Enrolar)",
+                explicacao: "É quando você passa a colher no fundo da panela e o doce demora a se juntar novamente, formando um 'caminho'. Ao inclinar a panela, a massa desgruda do fundo de uma vez. É o ponto certo para enrolar.",
+                categoria: "avancado",
+                emoji: "🍫",
+                exemplo: "Cozinhe até o ponto de brigadeiro (enrolar).",
+                dicaExtra: "Despeje em um prato untado e espere esfriar COMPLETAMENTE antes de enrolar."
+            },
+            {
+                termo: "Clarificar Manteiga",
+                explicacao: "Derreter a manteiga em fogo baixíssimo até separar em três camadas: espuma (caseína), gordura pura (manteiga clarificada) e sólidos do leite. Coe a gordura pura. Ela não queima em fogo alto. É o óleo dos chefs.",
+                categoria: "avancado",
+                emoji: "🧈✨",
+                exemplo: "Use manteiga clarificada para selar carnes.",
+                dicaExtra: "Manteiga ghee (indiana) já é clarificada. Compre pronta se quiser pular o trabalho."
+            },
+            {
+                termo: "Emulsionar",
+                explicacao: "Misturar dois líquidos que normalmente não se misturam (como água e óleo) até formar um creme homogêneo. Maionese é o exemplo clássico: gema (água) + óleo. Vinagrete também é uma emulsão temporária.",
+                categoria: "avancado",
+                emoji: "🥣",
+                exemplo: "Emulsione o azeite com o vinagre.",
+                dicaExtra: "Adicione o óleo EM FIO enquanto bate vigorosamente. Sem pressa."
+            },
+            
+            // === CORTES ===
+            {
+                termo: "Julienne",
+                explicacao: "Cortar o alimento em tirinhas bem finas, como palitos de fósforo. Exemplo clássico: cenoura julienne. Primeiro corte em fatias finas, depois empilhe e corte em tiras.",
+                categoria: "cortes",
+                emoji: "🥕",
+                exemplo: "Corte a cenoura em julienne.",
+                dicaExtra: "Use a parte de trás da faca (o 'gume falso') para não se cortar ao empurrar o alimento."
+            },
+            {
+                termo: "Brunoise",
+                explicacao: "Cubinhos BEM pequenos (2-3 mm). É o próximo passo depois do julienne: pegue as tirinhas e corte perpendicularmente em cubinhos minúsculos. Usado para molhos refinados e decoração.",
+                categoria: "cortes",
+                emoji: "🧅",
+                exemplo: "Corte a cebola em brunoise.",
+                dicaExtra: "Para leigos: 'picar bem pequenininho' já serve. Ninguém vai medir com régua."
+            },
+            {
+                termo: "Chiffonade",
+                explicacao: "Corte específico para FOLHAS (manjericão, couve, alface). Empilhe as folhas, enrole como um charuto e corte em tiras finas. Fica bonito e não machuca as folhas.",
+                categoria: "cortes",
+                emoji: "🌿",
+                exemplo: "Corte o manjericão em chiffonade.",
+                dicaExtra: "Use faca BEM afiada. Faca cega amassa e escurece as folhas."
+            },
+            {
+                termo: "Concassé",
+                explicacao: "Tomate sem pele e sem sementes, picado em cubos. Faça um X na base do tomate, branqueie (água fervente 30 seg), choque térmico (água gelada), retire a pele, corte ao meio, remova sementes, pique.",
+                categoria: "cortes",
+                emoji: "🍅",
+                exemplo: "Prepare o tomate concassé.",
+                dicaExtra: "Trabalhoso? Sim. Mas molho feito com concassé é outro nível."
+            },
+            
+            // === TÉCNICAS ===
+            {
+                termo: "Selar a Carne",
+                explicacao: "Dourar a carne em fogo ALTO com pouco óleo por 1-2 minutos de cada lado. Isso cria uma crosta saborosa e 'sela' os sucos internos (mito ou verdade? Mito, mas fica gostoso igual). Depois termine no forno ou fogo baixo.",
+                categoria: "tecnicas",
+                emoji: "🥩",
+                exemplo: "Sele o filé antes de levar ao forno.",
+                dicaExtra: "Não fique mexendo a carne. Deixe quieta até formar a crosta. Ela desgruda sozinha."
+            },
+            {
+                termo: "Deglaçar",
+                explicacao: "Depois de selar uma carne, o fundo da panela fica com pedacinhos queimados (chamados de 'fond'). Adicione um líquido (vinho, água, caldo) e raspe o fundo com uma colher de pau. Isso vira um molho INCRÍVEL.",
+                categoria: "tecnicas",
+                emoji: "🍷",
+                exemplo: "Deglace a panela com vinho tinto.",
+                dicaExtra: "Desligue o fogo antes de adicionar álcool para não flambar sua sobrancelha."
+            },
+            {
+                termo: "Banho-Maria",
+                explicacao: "Cozinhar algo dentro de um recipiente que está dentro de outro recipiente com água quente. Serve para derreter chocolate sem queimar, fazer pudim, ou aquecer coisas delicadas. O vapor da água cozinha indiretamente.",
+                categoria: "tecnicas",
+                emoji: "🍮",
+                exemplo: "Derreta o chocolate em banho-maria.",
+                dicaExtra: "A água NÃO pode ferver violentamente. Basta estar quente. E não deixe a água tocar o fundo da tigela de cima."
+            }
+        ];
+        
+        // Dados dos cortes visuais
+        const cortesVisuais = [
+            {
+                nome: "Como Picar Cebola Sem Chorar",
+                emoji: "🧅",
+                passos: [
+                    "Corte a cebola ao meio, da raiz ao topo.",
+                    "Mantenha a raiz intacta (ela segura a cebola junta).",
+                    "Faça cortes horizontais (paralelos à tábua) sem chegar na raiz.",
+                    "Faça cortes verticais (perpendiculares à tábua) sem chegar na raiz.",
+                    "Agora corte perpendicularmente para fazer cubinhos."
+                ],
+                dicaAntiChoro: "Mastigue um chiclete de menta enquanto pica. Ou deixe a cebola 15 min na geladeira antes. Ou use óculos de natação (sem vergonha)."
+            },
+            {
+                nome: "Como Segurar a Faca (Sem Perder o Dedo)",
+                emoji: "🔪",
+                passos: [
+                    "Polegar e indicador seguram a LÂMINA (perto do cabo), não só o cabo.",
+                    "Os outros 3 dedos envolvem o cabo firmemente.",
+                    "A mão que segura o alimento deve ficar em 'garra' (dedos dobrados para dentro).",
+                    "As pontas dos dedos ficam protegidas atrás dos nós dos dedos.",
+                    "A faca desliza contra os nós dos dedos, nunca contra as pontas."
+                ],
+                dicaAntiChoro: "Pratique com uma faca SEM FIO primeiro. A memória muscular é importante."
+            },
+            {
+                nome: "Como Cortar Cebola em Cubos (Brunoise do Pobre)",
+                emoji: "🧊",
+                passos: [
+                    "Corte a cebola ao meio (raiz ao topo).",
+                    "Faça fatias horizontais (2-3 cortes).",
+                    "Faça fatias verticais (sem chegar na raiz).",
+                    "Corte perpendicularmente em cubos.",
+                    "Quanto mais próximo o espaçamento, menores os cubos."
+                ],
+                dicaAntiChoro: "Faça tudo rápido. Quanto menos tempo exposto, menos choro."
+            }
+        ];
+        
+        // Técnicas explicadas em detalhe
+        const tecnicasDetalhadas = [
+            {
+                nome: "Como Refogar Corretamente",
+                emoji: "🧑‍🍳",
+                resumo: "A base de 90% da culinária brasileira.",
+                passos: [
+                    "Aqueça a panela primeiro. Depois adicione o óleo/manteiga.",
+                    "Adicione cebola picada. Mexa até ficar transparente (3-5 min).",
+                    "Adicione alho picado DEPOIS da cebola (alho queima rápido).",
+                    "Mexa por mais 30-60 segundos até sentir o cheiro.",
+                    "Agora sim, adicione o resto dos ingredientes."
+                ],
+                erroComum: "Colocar alho antes da cebola = alho queimado = amargo."
+            },
+            {
+                nome: "Como Fazer Arroz Soltinho",
+                emoji: "🍚",
+                resumo: "O terror de todo iniciante. Mas tem jeito.",
+                passos: [
+                    "Lave o arroz? Opcional. Se quiser mais solto, lave e escorra bem.",
+                    "Refogue alho (e cebola se quiser) em óleo quente.",
+                    "Adicione o arroz CRU e mexa por 1 minuto (isso sela os grãos).",
+                    "Adicione água quente (2 xícaras de água para 1 de arroz).",
+                    "Tempere com sal AGORA.",
+                    "Quando ferver, ABAIXE O FOGO PARA O MÍNIMO e TAMPE.",
+                    "NÃO ABRA A PANELA por 15-20 minutos.",
+                    "Desligue o fogo e deixe descansar TAMPADO por mais 5 minutos.",
+                    "Agora abra e solte com um garfo."
+                ],
+                erroComum: "Abrir a panela toda hora. Fogo alto demais. Água fria."
+            },
+            {
+                nome: "Como Fritar Ovo Perfeito",
+                emoji: "🍳",
+                resumo: "Gema mole, clara cozida, sem estourar.",
+                passos: [
+                    "Quebre o ovo em uma tigela separada PRIMEIRO.",
+                    "Aqueça a frigideira em fogo MÉDIO com um fio de óleo/manteiga.",
+                    "Despeje o ovo da tigela com cuidado, perto da superfície.",
+                    "Abaixe o fogo para BAIXO imediatamente.",
+                    "Tempere com sal AGORA (o sal ajuda a clara a firmar).",
+                    "Tampe a frigideira se quiser a gema cozida por cima também.",
+                    "Retire quando a clara estiver completamente branca e firme (3-4 min)."
+                ],
+                erroComum: "Fogo alto = bordas queimadas e gema crua. Ovo velho = clara espalha."
+            }
+        ];
+        
+        // ===== REFERÊNCIAS =====
+        const modal = document.getElementById('termoModal');
+        const modalBody = document.getElementById('modalBody');
+        const fecharModal = document.getElementById('fecharModal');
+        const overlay = document.querySelector('.modal__overlay');
+        const glossarioInput = document.getElementById('glossarioInput');
+        const glossarioBuscar = document.getElementById('glossarioBuscar');
+        const glossarioResultado = document.getElementById('glossarioResultado');
+        const glossaryGrid = document.getElementById('glossaryGrid');
+        const cutsGrid = document.getElementById('cutsGrid');
+        const techniquesList = document.getElementById('techniquesList');
+        
+        let filtroAtivo = 'todos';
+        
+        // ===== MENU MOBILE =====
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+        
+        // ===== RENDERIZAR GLOSSÁRIO =====
+        function renderizarGlossario() {
+            if (!glossaryGrid) return;
+            
+            const filtrados = filtroAtivo === 'todos' 
+                ? glossarioCompleto 
+                : glossarioCompleto.filter(t => t.categoria === filtroAtivo);
+            
+            glossaryGrid.innerHTML = filtrados.map(termo => `
+                <div class="glossary-card" data-termo="${termo.termo.toLowerCase()}">
+                    <div class="glossary-card__header">
+                        <span class="glossary-card__emoji">${termo.emoji}</span>
+                        <h3 class="glossary-card__title">${termo.termo}</h3>
+                    </div>
+                    <p class="glossary-card__explicacao">${termo.explicacao}</p>
+                    <p class="glossary-card__exemplo"><strong>Exemplo:</strong> "${termo.exemplo}"</p>
+                    <button class="glossary-card__btn" data-termo='${JSON.stringify(termo).replace(/'/g, "&apos;")}'>Ver detalhes →</button>
+                </div>
+            `).join('');
+            
+            // Adicionar event listeners
+            document.querySelectorAll('.glossary-card__btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const termo = JSON.parse(btn.dataset.termo);
+                    abrirModalTermo(termo);
+                });
+            });
+        }
+        
+        // ===== RENDERIZAR CORTES =====
+        function renderizarCortes() {
+            if (!cutsGrid) return;
+            
+            cutsGrid.innerHTML = cortesVisuais.map(corte => `
+                <div class="cut-card">
+                    <div class="cut-card__header">
+                        <span class="cut-card__emoji">${corte.emoji}</span>
+                        <h3 class="cut-card__title">${corte.nome}</h3>
+                    </div>
+                    <ol class="cut-card__passos">
+                        ${corte.passos.map(p => `<li>${p}</li>`).join('')}
+                    </ol>
+                    <div class="cut-card__dica">
+                        <strong>💡 Dica Anti-Choro:</strong> ${corte.dicaAntiChoro}
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // ===== RENDERIZAR TÉCNICAS =====
+        function renderizarTecnicas() {
+            if (!techniquesList) return;
+            
+            techniquesList.innerHTML = tecnicasDetalhadas.map(tec => `
+                <div class="technique-item">
+                    <div class="technique-item__header">
+                        <span class="technique-item__emoji">${tec.emoji}</span>
+                        <div>
+                            <h3 class="technique-item__title">${tec.nome}</h3>
+                            <p class="technique-item__resumo">${tec.resumo}</p>
+                        </div>
+                    </div>
+                    <ol class="technique-item__passos">
+                        ${tec.passos.map(p => `<li>${p}</li>`).join('')}
+                    </ol>
+                    <div class="technique-item__erro">
+                        <strong>⚠️ Erro Comum:</strong> ${tec.erroComum}
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // ===== ABRIR MODAL COM DETALHES =====
+        function abrirModalTermo(termo) {
+            modalBody.innerHTML = `
+                <div class="termo-modal">
+                    <div class="termo-modal__header">
+                        <span class="termo-modal__emoji">${termo.emoji}</span>
+                        <h2 class="termo-modal__title">${termo.termo}</h2>
+                        <span class="termo-modal__categoria badge">${termo.categoria}</span>
+                    </div>
+                    
+                    <div class="termo-modal__explicacao">
+                        <h3>📝 O que significa?</h3>
+                        <p>${termo.explicacao}</p>
+                    </div>
+                    
+                    <div class="termo-modal__exemplo">
+                        <h3>💬 Exemplo de uso</h3>
+                        <p>"${termo.exemplo}"</p>
+                    </div>
+                    
+                    <div class="termo-modal__dica">
+                        <h3>💡 Dica do Leigo</h3>
+                        <p>${termo.dicaExtra}</p>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // ===== FECHAR MODAL =====
+        function fecharModalFn() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        fecharModal.addEventListener('click', fecharModalFn);
+        overlay.addEventListener('click', fecharModalFn);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                fecharModalFn();
+            }
+        });
+        
+        // ===== BUSCAR TERMO =====
+        function buscarTermo(termoBusca) {
+            const termoLower = termoBusca.toLowerCase().trim();
+            
+            const encontrado = glossarioCompleto.find(t => 
+                t.termo.toLowerCase().includes(termoLower) ||
+                t.explicacao.toLowerCase().includes(termoLower) ||
+                t.exemplo.toLowerCase().includes(termoLower)
+            );
+            
+            if (encontrado) {
+                abrirModalTermo(encontrado);
+                
+                if (glossarioResultado) {
+                    glossarioResultado.innerHTML = `
+                        <div class="glossary-converter__result-item">
+                            <span class="glossary-converter__result-emoji">${encontrado.emoji}</span>
+                            <div>
+                                <strong>${encontrado.termo}</strong>
+                                <p>${encontrado.explicacao.substring(0, 100)}...</p>
+                            </div>
+                            <button class="btn btn--small btn-ver-termo" data-termo='${JSON.stringify(encontrado).replace(/'/g, "&apos;")}'>Ver Completo</button>
+                        </div>
+                    `;
+                    glossarioResultado.classList.remove('hidden');
+                    
+                    document.querySelector('.btn-ver-termo')?.addEventListener('click', (e) => {
+                        const termo = JSON.parse(e.target.dataset.termo);
+                        abrirModalTermo(termo);
+                    });
+                }
+            } else {
+                if (glossarioResultado) {
+                    glossarioResultado.innerHTML = `
+                        <div class="glossary-converter__result-item glossary-converter__result-item--notfound">
+                            <span>😕</span>
+                            <p>Termo "${termoBusca}" não encontrado. Tente: refogar, al dente, pitada...</p>
+                        </div>
+                    `;
+                    glossarioResultado.classList.remove('hidden');
+                }
+            }
+        }
+        
+        // ===== EVENT LISTENERS =====
+        if (glossarioBuscar && glossarioInput) {
+            glossarioBuscar.addEventListener('click', () => {
+                const termo = glossarioInput.value.trim();
+                if (termo) buscarTermo(termo);
+            });
+            
+            glossarioInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const termo = glossarioInput.value.trim();
+                    if (termo) buscarTermo(termo);
+                }
+            });
+        }
+        
+        // Chips de termos populares
+        document.querySelectorAll('.glossary-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                const termo = chip.dataset.termo;
+                glossarioInput.value = termo;
+                buscarTermo(termo);
+            });
+        });
+        
+        // Filtros de categoria
+        document.querySelectorAll('.glossary-filters .filter-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('.glossary-filters .filter-chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                filtroAtivo = chip.dataset.filter;
+                renderizarGlossario();
+            });
+        });
+        
+        // ===== INICIALIZAR =====
+        renderizarGlossario();
+        renderizarCortes();
+        renderizarTecnicas();
+    </script>
+    
+    <style>
+        /* ===== ESTILOS ESPECÍFICOS GLOSSÁRIO ===== */
+        
+        .page-header {
+            padding: 3rem 0 1.5rem;
+            text-align: center;
+            border-bottom: var(--border-thick);
+        }
+        
+        .page-header__title {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .page-header__subtitle {
+            font-size: 1.25rem;
+            color: var(--color-text-light);
+        }
+        
+        /* Conversor */
+        .glossary-converter {
+            padding: 2rem 0;
+        }
+        
+        .glossary-converter__box {
+            background: var(--color-surface);
+            border: var(--border-thick);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-hard);
+        }
+        
+        .glossary-converter__title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .glossary-converter__subtitle {
+            color: var(--color-text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .glossary-converter__search {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .glossary-converter__input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            font-size: 1.25rem;
+            border: var(--border-thick);
+            background: var(--color-bg);
+            min-height: 60px;
+        }
+        
+        .glossary-converter__result {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: var(--color-secondary);
+            border: var(--border-medium);
+        }
+        
+        .glossary-converter__result-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .glossary-converter__result-emoji {
+            font-size: 2.5rem;
+        }
+        
+        .glossary-converter__popular {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .glossary-converter__popular-label {
+            font-weight: 600;
+        }
+        
+        .glossary-converter__chips {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .glossary-chip {
+            padding: 0.5rem 1.25rem;
+            background: var(--color-surface);
+            border: var(--border-medium);
+            font-size: 1rem;
+            cursor: pointer;
+            min-height: 44px;
+        }
+        
+        .glossary-chip:hover {
+            background: var(--color-primary);
+        }
+        
+        /* Lista do Glossário */
+        .glossary-list {
+            padding: 2rem 0 4rem;
+        }
+        
+        .section-subtitle {
+            color: var(--color-text-light);
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+        
+        .glossary-filters {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .glossary-card {
+            background: var(--color-surface);
+            border: var(--border-thick);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.15s;
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .glossary-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: var(--shadow-hard);
+        }
+        
+        .glossary-card__header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .glossary-card__emoji {
+            font-size: 2rem;
+        }
+        
+        .glossary-card__title {
+            font-size: 1.3rem;
+            margin: 0;
+        }
+        
+        .glossary-card__explicacao {
+            color: var(--color-text);
+            margin-bottom: 0.75rem;
+            flex: 1;
+        }
+        
+        .glossary-card__exemplo {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+        
+        .glossary-card__btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: none;
+            border: var(--border-medium);
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: auto;
+        }
+        
+        .glossary-card__btn:hover {
+            background: var(--color-primary);
+        }
+        
+        /* Cortes Visuais */
+        .glossary-cuts {
+            padding: 2rem 0 4rem;
+            border-top: var(--border-thick);
+            background: var(--color-secondary);
+        }
+        
+        .cuts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .cut-card {
+            background: var(--color-surface);
+            border: var(--border-thick);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .cut-card__header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cut-card__emoji {
+            font-size: 2rem;
+        }
+        
+        .cut-card__title {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        
+        .cut-card__passos {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .cut-card__passos li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .cut-card__dica {
+            padding: 0.75rem;
+            background: var(--color-emergency);
+            border: 1px solid var(--color-border);
+            font-size: 0.9rem;
+        }
+        
+        /* Técnicas */
+        .glossary-techniques {
+            padding: 2rem 0 4rem;
+        }
+        
+        .techniques-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .technique-item {
+            background: var(--color-surface);
+            border: var(--border-thick);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .technique-item__header {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .technique-item__emoji {
+            font-size: 2.5rem;
+        }
+        
+        .technique-item__title {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .technique-item__resumo {
+            color: var(--color-text-light);
+        }
+        
+        .technique-item__passos {
+            margin: 1rem 0 1rem 1.5rem;
+            padding-left: 1rem;
+        }
+        
+        .technique-item__passos li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .technique-item__erro {
+            padding: 0.75rem;
+            background: #FFE8E0;
+            border-left: 4px solid var(--color-emergency-dark);
+            margin-top: 1rem;
+        }
+        
+        /* Modal */
+        .modal__content--glossary {
+            max-width: 600px;
+        }
+        
+        .termo-modal__header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: var(--border-medium);
+        }
+        
+        .termo-modal__emoji {
+            font-size: 3rem;
+        }
+        
+        .termo-modal__title {
+            font-size: 2rem;
+            flex: 1;
+            margin: 0;
+        }
+        
+        .termo-modal__explicacao,
+        .termo-modal__exemplo,
+        .termo-modal__dica {
+            margin-bottom: 1.5rem;
+        }
+        
+        .termo-modal__explicacao h3,
+        .termo-modal__exemplo h3,
+        .termo-modal__dica h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .termo-modal__exemplo p {
+            font-style: italic;
+            padding: 0.75rem;
+            background: var(--color-bg);
+            border-left: 4px solid var(--color-primary);
+        }
+        
+        .termo-modal__dica p {
+            padding: 1rem;
+            background: var(--color-emergency);
+            border: var(--border-medium);
+        }
+        
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .glossary-converter__search {
+                flex-direction: column;
+            }
+            
+            .cuts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .glossary-converter__box {
+                padding: 1.5rem;
+            }
+            
+            .glossary-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .termo-modal__header {
+                flex-wrap: wrap;
+            }
+            
+            .termo-modal__title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</body>
+</html>

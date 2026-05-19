@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Primeiros Socorros · LeigosCookie</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🍪%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header__container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="LeigosCookie" width="48" height="48" style="object-fit: contain;">
+                <span class="logo__text">Leigos<span class="logo__accent">Cookie</span></span>
+            </a>
+            
+            <nav class="nav" id="mainNav">
+                <button class="nav__toggle" id="navToggle" aria-label="Menu">
+                    <span class="nav__hamburger"></span>
+                </button>
+                <ul class="nav__menu" id="navMenu">
+                    <li><a href="index.html" class="nav__link">Início</a></li>
+                    <li><a href="receitas.html" class="nav__link">Receitas</a></li>
+                    <li><a href="glossario.html" class="nav__link">Glossário</a></li>
+                    <li><a href="primeiros-socorros.html" class="nav__link nav__link--emergency">🚑 SOS</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO DE EMERGÊNCIA -->
+        <section class="sos-hero">
+            <div class="container">
+                <div class="sos-hero__content">
+                    <span class="sos-hero__emoji">🚨</span>
+                    <h1 class="sos-hero__title">Estragou o Arroz?</h1>
+                    <p class="sos-hero__subtitle">Calma. Respira. A gente resolve.</p>
+                    <p class="sos-hero__text">Se você queimou, salgou demais, deixou sem gosto ou fez alguma outra besteira na cozinha, <strong>você está no lugar certo</strong>. Abaixo estão os resgates mais comuns para salvar sua comida (e sua dignidade).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BUSCADOR DE PROBLEMAS -->
+        <section class="sos-search">
+            <div class="container">
+                <div class="sos-search__box">
+                    <h2 class="sos-search__title">O que aconteceu?</h2>
+                    <p class="sos-search__subtitle">Digite o problema ou escolha abaixo:</p>
+                    
+                    <div class="sos-search__input-wrapper">
+                        <input type="text" 
+                               id="sosInput" 
+                               class="sos-search__input" 
+                               placeholder="Ex: comida salgada, arroz queimado, molho ralo..."
+                               autocomplete="off">
+                        <button id="sosBuscar" class="btn btn--emergency">🔍 Buscar Solução</button>
+                    </div>
+                    
+                    <div id="sosResultadoPesquisa" class="sos-search__result hidden">
+                        <!-- Resultado da busca aparece aqui -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORIAS DE EMERGÊNCIA (ACESSO RÁPIDO) -->
+        <section class="sos-categories">
+            <div class="container">
+                <h2 class="section-title">🚑 Resgates Rápidos</h2>
+                <p class="section-subtitle">Clique no seu desastre:</p>
+                
+                <div class="sos-grid">
+                    <!-- CARD 1: SALGADO DEMAIS -->
+                    <div class="sos-card" data-categoria="sal">
+                        <div class="sos-card__header">
+                            <span class="sos-card__emoji">🧂➡️🧂🧂🧂</span>
+                            <span class="sos-card__badge badge--warning">NÍVEL: MÉDIO</span>
+                        </div>
+                        <h3 class="sos-card__title">Comida Salgada Demais</h3>
+                        <p class="sos-card__desc">Você foi generoso no saleiro. Agora parece que comeu água do mar.</p>
+                        <button class="sos-card__btn" data-problema="sal">Ver Solução →</button>
+                    </div>
+                    
+                    <!-- CARD 2: QUEIMADO -->
+                    <div class="sos-card" data-categoria="queimado">
+                        <div class="sos-card__header">
+                            <span class="sos-card__emoji">🔥➡️⚫</span>
+                            <span class="sos-card__badge badge--danger">NÍVEL: GRAVE</span>
+                        </div>
+                        <h3 class="sos-card__title">Arroz / Comida Queimada</h3>
+                        <p class="sos-card__desc">Cheiro de fumaça. Fundo da panela preto. Pânico.</p>
+                        <button class="sos-card__btn" data-problema="queimado">Ver Solução →</button>
+                    </div>
+                    
+                    <!-- CARD 3: SEM GOSTO -->
+                    <div class="sos-card" data-categoria="semgosto">
+                        <div class="sos-card__header">
+                            <span class="sos-card__emoji">😐➡️🤔</span>
+                            <span class="sos-card__badge badge--easy">NÍVEL: LEVE</span>
+                        </div>
+                        <h3 class="sos-card__title">Comida Sem Graça</h3>
+                        <p class="sos-card__desc">Tá tudo lá, mas parece que falta alma. Sem personalidade.</p>
+                        <button class="sos-card__btn" data-problema="semgosto">Ver Solução →</button>
+                    </div>
+                    
+                    <!-- CARD 4: MOLHO RALO -->
+                    <div class="sos-card" data-categoria="ralo">
+                        <div class="sos-card__header">
+                            <span class="sos-card__emoji">💧➡️🍲</span>
+                            <span class="sos-card__badge badge--easy">NÍVEL: LEVE</span>
+                        </div>
+                        <h3 class="sos-card__title">Molho Ralo / Aguado</h3>
+                        <p class="sos-card__desc">Parece sopa, mas era pra ser molho. Tristeza.</p>
+                        <button class="sos-card__btn" data-problema="ralo">Ver Solução →</button>
+                    </div>
+                    
+                    <!-- CARD 5: MACARRÃO GRUDADO -->
+                    <div class="sos-card" data-categoria="grudado">
+                        <div class="sos-card__header">
+                            <span class="sos-card__emoji">🍝➡️🧱</span>
+                            <span class="sos-card__badge badge--warning">NÍVEL: MÉDIO</span>
+                        </div>
+                        <h3 class="sos-card__title">Macarrão Grudado</h3>
+                        <p class="sos-card__desc">Virou um bloco único de massa. Impossível de separar.</p>
+                        <button class="sos-card__btn" data-problema="grudado">Ver Solução →</button>
+                    </div>
+                    
+                    <!-- CARD 6: ARROZ PAPA -->
+                    <div class="sos-card" data-categoria="papa">
+                        <div class="sos-card__header">
+                            <span class="sos-card__emoji">🍚➡️🥣</span>
+                            <span class="sos-card__badge badge--warning">NÍVEL: MÉDIO</span>
+                        </div>
+                        <h3 class="sos-card__title">Arroz Empapado</h3>
+                        <p class="sos-card__desc">Virou mingau. Grãos desmanchando. Sem textura.</p>
+                        <button class="sos-card__btn" data-problema="papa">Ver Solução →</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LISTA COMPLETA DE SOLUÇÕES (EXPANSÍVEL) -->
+        <section class="sos-accordion">
+            <div class="container">
+                <h2 class="section-title">📋 Manual Completo de Sobrevivência</h2>
+                <p class="section-subtitle">Todas as soluções, organizadas para consulta.</p>
+                
+                <div class="accordion" id="sosAccordion">
+                    <!-- Os itens são gerados via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- DICA EXTRA: KIT DE EMERGÊNCIA -->
+        <section class="sos-kit">
+            <div class="container">
+                <div class="sos-kit__box">
+                    <h2 class="sos-kit__title">🧰 Kit de Emergência do Leigo</h2>
+                    <p class="sos-kit__subtitle">Tenha esses itens salvadores sempre à mão:</p>
+                    
+                    <div class="sos-kit__items">
+                        <div class="kit-item">
+                            <span class="kit-item__emoji">🥔</span>
+                            <div class="kit-item__content">
+                                <h4>Batata Crua</h4>
+                                <p>Salva comida salgada demais. Coloque uma batata descascada e cortada na panela por 10-15 minutos. Ela suga o excesso de sal.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="kit-item">
+                            <span class="kit-item__emoji">🌽</span>
+                            <div class="kit-item__content">
+                                <h4>Amido de Milho (Maizena)</h4>
+                                <p>Engrossa qualquer molho ralo. Misture 1 colher (chá) em 2 colheres (sopa) de água fria antes de adicionar ao molho quente.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="kit-item">
+                            <span class="kit-item__emoji">🍋</span>
+                            <div class="kit-item__content">
+                                <h4>Limão ou Vinagre</h4>
+                                <p>Acorda comida sem graça. Algumas gotas de ácido realçam todos os sabores. Use com moderação.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="kit-item">
+                            <span class="kit-item__emoji">🧅</span>
+                            <div class="kit-item__content">
+                                <h4>Cebola</h4>
+                                <p>Absorve cheiro de queimado. Coloque meia cebola crua sobre a comida (sem encostar na parte queimada) e tampe por 5 minutos.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="kit-item">
+                            <span class="kit-item__emoji">🍚</span>
+                            <div class="kit-item__content">
+                                <h4>Arroz Cru</h4>
+                                <p>Salva celular molhado (coloque dentro de um pote com arroz). Mas na cozinha? Não serve pra nada. Só pra lembrar que você não está tão mal assim.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL DE SOLUÇÃO -->
+    <div class="modal" id="solucaoModal">
+        <div class="modal__overlay"></div>
+        <div class="modal__content modal__content--sos">
+            <button class="modal__close" id="fecharModal">✕</button>
+            
+            <div class="modal__body" id="modalBody">
+                <!-- Conteúdo dinâmico da solução -->
+            </div>
+            
+            <div class="modal__actions">
+                <button class="btn btn--primary" id="entendiBtn">👍 Entendi! Vou tentar!</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <span class="footer__logo">LeigosCookie</span>
+                    <p class="footer__tagline">Todo mundo começa de algum lugar. O seu lugar é aqui.</p>
+                </div>
+                
+                <div class="footer__links">
+                    <a href="glossario.html">Glossário Visual</a>
+                    <a href="receitas.html">Receitas</a>
+                    <a href="index.html">Início</a>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p>🍪 Feito para quem queima água. (E agora sabe como salvar.)</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script>
+        // ============================================
+        // PRIMEIROS-SOCORROS.HTML · LÓGICA COMPLETA
+        // ============================================
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // ===== DADOS COMPLETOS DE PRIMEIROS SOCORROS =====
+            const solucoes = [
+                {
+                    id: 'sal',
+                    problema: 'Comida Salgada Demais',
+                    icone: '🧂',
+                    gravidade: 'Média',
+                    solucao: 'Adicione uma batata crua descascada e cortada ao meio na panela. Deixe cozinhar por 10-15 minutos. A batata suga o excesso de sal. Retire a batata antes de servir.',
+                    alternativas: [
+                        'Adicione um pouco de açúcar (1 colher de chá por vez) para neutralizar o sal.',
+                        'Adicione gotas de limão ou vinagre para cortar o sabor salgado.',
+                        'Se for sopa ou caldo, adicione mais água e ajuste os temperos.',
+                        'Em último caso, dobre a receita (adicione mais ingredientes sem sal).'
+                    ],
+                    prevencao: 'Tempere aos poucos, provando sempre. Lembre-se: é mais fácil adicionar sal do que remover.'
+                },
+                {
+                    id: 'queimado',
+                    problema: 'Arroz / Comida Queimada',
+                    icone: '🔥',
+                    gravidade: 'Grave',
+                    solucao: 'NÃO RASPE O FUNDO. Retire com cuidado apenas a parte de cima que não queimou e coloque em outra vasilha limpa. Coloque uma cebola crua cortada ao meio sobre a comida, tampe e espere 5-10 minutos. A cebola absorve o cheiro de queimado.',
+                    alternativas: [
+                        'Troque a vasilha imediatamente. O gosto de queimado se espalha rápido.',
+                        'Se for arroz, coloque uma fatia de pão de forma sobre ele e tampe por 5 minutos.',
+                        'Adicione uma colher de manteiga gelada para disfarçar o sabor residual.',
+                        'Se queimou MUITO, infelizmente não tem salvação. Peça pizza.'
+                    ],
+                    prevencao: 'Fogo baixo para cozimentos longos. Não abandone a panela. Use timer.'
+                },
+                {
+                    id: 'semgosto',
+                    problema: 'Comida Sem Graça / Sem Sabor',
+                    icone: '😐',
+                    gravidade: 'Leve',
+                    solucao: 'Adicione sal aos poucos, provando. Se mesmo assim estiver "apagada", adicione umas gotas de limão ou vinagre. O ácido "acorda" o sabor da comida. Um tablete de caldo de galinha/legumes também resolve na emergência.',
+                    alternativas: [
+                        'Adicione alho ou cebola refogados na hora (dá frescor).',
+                        'Use ervas secas (orégano, manjericão) ou frescas (salsinha, cebolinha).',
+                        'Um toque de pimenta-do-reino moída na hora faz milagres.',
+                        'Manteiga ou azeite no final também realçam sabores.'
+                    ],
+                    prevencao: 'Tempere por camadas. Salgue um pouco a cada etapa, não só no final.'
+                },
+                {
+                    id: 'ralo',
+                    problema: 'Molho Ralo / Aguado',
+                    icone: '💧',
+                    gravidade: 'Leve',
+                    solucao: 'Misture 1 colher de chá de amido de milho (maizena) em 2 colheres de sopa de água FRIA. Despeje no molho fervendo mexendo sem parar. Em 30-60 segundos engrossa. Repita se necessário.',
+                    alternativas: [
+                        'Farinha de trigo funciona também (1 colher de sopa para cada xícara de líquido), mas precisa cozinhar bem para não ficar com gosto de cru.',
+                        'Deixe o molho reduzir em fogo baixo sem tampa (evapora a água).',
+                        'Adicione um pouco de purê de batata instantâneo.',
+                        'Se for molho de tomate, uma colher de extrato de tomate ajuda.'
+                    ],
+                    prevencao: 'Adicione líquidos aos poucos. É mais fácil adicionar do que engrossar.'
+                },
+                {
+                    id: 'grudado',
+                    problema: 'Macarrão Grudado / Empelotado',
+                    icone: '🍝',
+                    gravidade: 'Média',
+                    solucao: 'Escorra o macarrão e passe em água corrente fria por 30 segundos para interromper o cozimento. Depois volte para a panela com um fio de azeite e misture bem. O azeite solta os fios.',
+                    alternativas: [
+                        'Adicione um pouco da água do cozimento (que contém amido) e mexa.',
+                        'Se já estiver frio e grudado, coloque em água fervente por 30 segundos e escorra novamente.',
+                        'Misture o molho imediatamente após escorrer. O molho quente solta a massa.',
+                        'Nunca lave o macarrão com água fria se for servir com molho (perde a aderência).'
+                    ],
+                    prevencao: 'Use panela grande com MUITA água. Mexa nos primeiros 2 minutos de cozimento. Não coloque óleo na água (mito).'
+                },
+                {
+                    id: 'papa',
+                    problema: 'Arroz Empapado / Papa',
+                    icone: '🥣',
+                    gravidade: 'Média',
+                    solucao: 'Se ainda estiver quente, espalhe o arroz em uma assadeira ou prato grande para esfriar rapidamente e evaporar o excesso de umidade. Depois volte para a panela em fogo baixo por 2 minutos.',
+                    alternativas: [
+                        'Coloque uma fatia de pão de forma sobre o arroz e tampe por 5 minutos. O pão absorve umidade.',
+                        'Se estiver muito papa, faça bolinho de arroz! Adicione ovo, farinha e queijo, modele e frite.',
+                        'Transforme em arroz de forno: coloque em um refratário, cubra com queijo e leve ao forno para secar.',
+                        'Use como base para sopa (adicione caldo de legumes).'
+                    ],
+                    prevencao: 'Use a proporção correta: 1 xícara de arroz para 2 xícaras de água. Fogo baixo após ferver. Não mexa durante o cozimento.'
+                },
+                {
+                    id: 'amargo',
+                    problema: 'Comida Amarga',
+                    icone: '😖',
+                    gravidade: 'Média',
+                    solucao: 'Adicione uma pitada de açúcar ou mel para neutralizar o amargor. Uma colher de manteiga ou creme de leite também ajuda a suavizar o sabor amargo.',
+                    alternativas: [
+                        'Se for de alho queimado, infelizmente não tem conserto. Comece de novo.',
+                        'Para berinjela ou jiló, deixe de molho em água com sal por 30 minutos antes de cozinhar.',
+                        'Adicione acidez (limão, vinagre) para equilibrar o amargor.',
+                        'Batata doce ou cenoura ralada adicionam doçura natural.'
+                    ],
+                    prevencao: 'Não queime o alho. Retire as sementes de pimentões e pepinos.'
+                },
+                {
+                    id: 'apimentado',
+                    problema: 'Comida Muito Apimentada',
+                    icone: '🌶️',
+                    gravidade: 'Grave',
+                    solucao: 'Adicione laticínios: creme de leite, iogurte natural, leite de coco ou requeijão. A caseína do leite neutraliza a capsaicina (substância que arde). Água NÃO adianta, só espalha a ardência.',
+                    alternativas: [
+                        'Adicione açúcar ou mel para equilibrar.',
+                        'Acidez (limão, vinagre) também ajuda a cortar a ardência.',
+                        'Aumente a receita (adicione mais ingredientes sem pimenta).',
+                        'Sirva com arroz branco ou pão para acompanhar e diluir a ardência na boca.'
+                    ],
+                    prevencao: 'Pimenta se adiciona aos poucos. Prove antes de colocar mais. Lave as mãos após manusear pimenta (e não toque nos olhos!).'
+                },
+                {
+                    id: 'ovoquebrado',
+                    problema: 'Ovo Quebrado na Hora de Fritar',
+                    icone: '🥚',
+                    gravidade: 'Leve',
+                    solucao: 'Abaixe o fogo imediatamente. Com uma espátula, tente juntar a clara espalhada para perto da gema. Se a gema estourou, não tem conserto visual, mas o sabor é o mesmo. Chame de "ovo mexido rústico".',
+                    alternativas: [
+                        'Quebre o ovo em uma tigela separada antes de colocar na frigideira. Sempre.',
+                        'Se quebrou na água (ovo pochê), adicione um pouco de vinagre na água. Ajuda a coagular a clara.',
+                        'Ovo velho espalha mais. Use ovos frescos para fritar.',
+                        'Transforme em omelete: bata o ovo quebrado e adicione queijo.'
+                    ],
+                    prevencao: 'Sempre quebre o ovo em uma tigela separada. Ovos em temperatura ambiente quebram menos.'
+                },
+                {
+                    id: 'bolomurcho',
+                    problema: 'Bolo Solado / Murcho',
+                    icone: '🎂',
+                    gravidade: 'Grave',
+                    solucao: 'Se já assou e murchou, não tem como "inflar" de novo. Mas você pode: 1) Cortar em cubos e fazer pavê. 2) Esfarelar e fazer brigadeiro de bolo. 3) Cobrir com bastante cobertura para disfarçar. 4) Chamar de "bolo cremoso".',
+                    alternativas: [
+                        'Transforme em bolo de pote: intercale camadas de bolo esfarelado com creme.',
+                        'Faça trufas: misture a massa esfarelada com leite condensado, modele e passe no chocolate.',
+                        'Use como base para cheesecake ou torta (base de bolo triturado com manteiga).',
+                        'Sirva com sorvete. Sorvete salva qualquer sobremesa.'
+                    ],
+                    prevencao: 'Não abra o forno nos primeiros 20 minutos. Não bata demais a massa após adicionar farinha. Fermento vencido não funciona.'
+                }
+            ];
+            
+            // ===== REFERÊNCIAS =====
+            const modal = document.getElementById('solucaoModal');
+            const modalBody = document.getElementById('modalBody');
+            const fecharModal = document.getElementById('fecharModal');
+            const overlay = document.querySelector('.modal__overlay');
+            const entendiBtn = document.getElementById('entendiBtn');
+            const sosInput = document.getElementById('sosInput');
+            const sosBuscar = document.getElementById('sosBuscar');
+            const sosResultado = document.getElementById('sosResultadoPesquisa');
+            const accordion = document.getElementById('sosAccordion');
+            
+            // ===== MENU MOBILE =====
+            const navToggle = document.getElementById('navToggle');
+            const navMenu = document.getElementById('navMenu');
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                });
+            }
+            
+            // ===== RENDERIZAR ACCORDION =====
+            function renderizarAccordion() {
+                if (!accordion) return;
+                
+                accordion.innerHTML = solucoes.map(sol => `
+                    <div class="accordion-item">
+                        <button class="accordion-header" data-id="${sol.id}">
+                            <span class="accordion-header__icon">${sol.icone}</span>
+                            <span class="accordion-header__title">${sol.problema}</span>
+                            <span class="accordion-header__badge badge--${sol.gravidade === 'Grave' ? 'danger' : (sol.gravidade === 'Média' ? 'warning' : 'easy')}">${sol.gravidade}</span>
+                            <span class="accordion-header__arrow">▼</span>
+                        </button>
+                        <div class="accordion-content" id="accordion-${sol.id}">
+                            <div class="accordion-content__inner">
+                                <p class="accordion-content__solucao"><strong>🆘 Solução:</strong> ${sol.solucao}</p>
+                                
+                                <div class="accordion-content__alternativas">
+                                    <strong>💡 Alternativas:</strong>
+                                    <ul>
+                                        ${sol.alternativas.map(alt => `<li>${alt}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                
+                                <div class="accordion-content__prevencao">
+                                    <strong>🛡️ Prevenção:</strong> ${sol.prevencao}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                
+                // Adicionar event listeners aos headers
+                document.querySelectorAll('.accordion-header').forEach(header => {
+                    header.addEventListener('click', () => {
+                        const id = header.dataset.id;
+                        const content = document.getElementById(`accordion-${id}`);
+                        const isActive = header.classList.contains('active');
+                        
+                        // Fechar todos
+                        document.querySelectorAll('.accordion-header').forEach(h => h.classList.remove('active'));
+                        document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('active'));
+                        
+                        // Abrir o clicado se não estava ativo
+                        if (!isActive) {
+                            header.classList.add('active');
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            }
+            
+            // ===== ABRIR MODAL COM SOLUÇÃO =====
+            function abrirModalSolucao(solucao) {
+                modalBody.innerHTML = `
+                    <div class="sos-modal">
+                        <div class="sos-modal__header">
+                            <span class="sos-modal__emoji">${solucao.icone}</span>
+                            <h2 class="sos-modal__title">${solucao.problema}</h2>
+                            <span class="sos-modal__badge badge--${solucao.gravidade === 'Grave' ? 'danger' : (solucao.gravidade === 'Média' ? 'warning' : 'easy')}">${solucao.gravidade}</span>
+                        </div>
+                        
+                        <div class="sos-modal__solucao">
+                            <h3>🆘 SOLUÇÃO IMEDIATA</h3>
+                            <p>${solucao.solucao}</p>
+                        </div>
+                        
+                        <div class="sos-modal__alternativas">
+                            <h3>💡 PLANOS B, C e D</h3>
+                            <ul>
+                                ${solucao.alternativas.map(alt => `<li>${alt}</li>`).join('')}
+                            </ul>
+                        </div>
+                        
+                        <div class="sos-modal__prevencao">
+                            <h3>🛡️ COMO EVITAR NA PRÓXIMA</h3>
+                            <p>${solucao.prevencao}</p>
+                        </div>
+                    </div>
+                `;
+                
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            // ===== FECHAR MODAL =====
+            function fecharModalFn() {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            fecharModal.addEventListener('click', fecharModalFn);
+            overlay.addEventListener('click', fecharModalFn);
+            entendiBtn.addEventListener('click', fecharModalFn);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    fecharModalFn();
+                }
+            });
+            
+            // ===== BUSCAR SOLUÇÃO =====
+            function buscarSolucao(termo) {
+                const termoLower = termo.toLowerCase().trim();
+                
+                const encontrada = solucoes.find(s => 
+                    s.problema.toLowerCase().includes(termoLower) ||
+                    s.solucao.toLowerCase().includes(termoLower) ||
+                    s.alternativas.some(a => a.toLowerCase().includes(termoLower)) ||
+                    s.id.includes(termoLower)
+                );
+                
+                if (encontrada) {
+                    abrirModalSolucao(encontrada);
+                    
+                    // Também mostrar na área de pesquisa
+                    if (sosResultado) {
+                        sosResultado.innerHTML = `
+                            <div class="sos-search__result-item">
+                                <span class="sos-search__result-emoji">${encontrada.icone}</span>
+                                <div>
+                                    <strong>${encontrada.problema}</strong>
+                                    <p>${encontrada.solucao.substring(0, 100)}...</p>
+                                </div>
+                                <button class="btn btn--small btn-ver-solucao" data-id="${encontrada.id}">Ver Completo</button>
+                            </div>
+                        `;
+                        sosResultado.classList.remove('hidden');
+                        
+                        document.querySelector('.btn-ver-solucao')?.addEventListener('click', () => {
+                            abrirModalSolucao(encontrada);
+                        });
+                    }
+                } else {
+                    if (sosResultado) {
+                        sosResultado.innerHTML = `
+                            <div class="sos-search__result-item sos-search__result-item--notfound">
+                                <span>😕</span>
+                                <p>Não encontrei solução exata para "${termo}". Tente: salgado, queimado, sem gosto, ralo, grudado, papa...</p>
+                            </div>
+                        `;
+                        sosResultado.classList.remove('hidden');
+                    }
+                }
+            }
+            
+            // ===== EVENT LISTENERS =====
+            if (sosBuscar && sosInput) {
+                sosBuscar.addEventListener('click', () => {
+                    const termo = sosInput.value.trim();
+                    if (termo) {
+                        buscarSolucao(termo);
+                    }
+                });
+                
+                sosInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        const termo = sosInput.value.trim();
+                        if (termo) {
+                            buscarSolucao(termo);
+                        }
+                    }
+                });
+            }
+            
+            // Cards de categoria
+            document.querySelectorAll('.sos-card__btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const problema = btn.dataset.problema;
+                    const solucao = solucoes.find(s => s.id === problema);
+                    if (solucao) {
+                        abrirModalSolucao(solucao);
+                    }
+                });
+            });
+            
+            // Também permitir clicar no card inteiro
+            document.querySelectorAll('.sos-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (!e.target.closest('.sos-card__btn')) {
+                        const problema = card.dataset.categoria;
+                        const solucao = solucoes.find(s => s.id === problema);
+                        if (solucao) {
+                            abrirModalSolucao(solucao);
+                        }
+                    }
+                });
+            });
+            
+            // ===== INICIALIZAR =====
+            renderizarAccordion();
+            
+            // Verificar se veio com parâmetro de busca na URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const buscaUrl = urlParams.get('busca');
+            if (buscaUrl) {
+                sosInput.value = buscaUrl;
+                buscarSolucao(buscaUrl);
+            }
+        });
+    </script>
+    
+    <style>
+        /* ===== ESTILOS ESPECÍFICOS PRIMEIROS-SOCORROS ===== */
+        
+        /* Hero de Emergência */
+        .sos-hero {
+            background: linear-gradient(135deg, var(--color-emergency) 0%, var(--color-emergency-dark) 100%);
+            border-bottom: var(--border-thick);
+            padding: 3rem 0;
+        }
+        
+        .sos-hero__content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .sos-hero__emoji {
+            font-size: 5rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+        
+        .sos-hero__title {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+        }
+        
+        .sos-hero__subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .sos-hero__text {
+            font-size: 1.2rem;
+            background: rgba(255,255,255,0.7);
+            padding: 1.5rem;
+            border: var(--border-thick);
+            display: inline-block;
+        }
+        
+        /* Buscador SOS */
+        .sos-search {
+            padding: 2rem 0;
+            margin-top: -2rem;
+        }
+        
+        .sos-search__box {
+            background: var(--color-surface);
+            border: var(--border-thick);
+            padding: 2rem;
+            box-shadow: var(--shadow-hard);
+        }
+        
+        .sos-search__title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sos-search__subtitle {
+            color: var(--color-text-light);
+            margin-bottom: 1.5rem;
+        }
+        
+        .sos-search__input-wrapper {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .sos-search__input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            font-size: 1.25rem;
+            border: var(--border-thick);
+            background: var(--color-bg);
+            min-height: 60px;
+        }
+        
+        .btn--emergency {
+            background: var(--color-emergency);
+            border: var(--border-thick);
+            font-weight: 700;
+            min-height: 60px;
+            padding: 0 2rem;
+        }
+        
+        .sos-search__result {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: var(--color-secondary);
+            border: var(--border-medium);
+        }
+        
+        .sos-search__result-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .sos-search__result-emoji {
+            font-size: 2.5rem;
+        }
+        
+        .sos-search__result-item--notfound {
+            justify-content: center;
+            color: var(--color-text-light);
+        }
+        
+        /* Grid de Categorias */
+        .sos-categories {
+            padding: 2rem 0 4rem;
+        }
+        
+        .section-subtitle {
+            color: var(--color-text-light);
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+        
+        .sos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .sos-card {
+            background: var(--color-surface);
+            border: var(--border-thick);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.15s;
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .sos-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: var(--shadow-hard);
+        }
+        
+        .sos-card__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .sos-card__emoji {
+            font-size: 2rem;
+        }
+        
+        .badge--warning {
+            background: var(--color-emergency);
+        }
+        
+        .badge--danger {
+            background: #E8A598;
+            color: #3E2723;
+        }
+        
+        .badge--easy {
+            background: #A8E6CF;
+        }
+        
+        .sos-card__title {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .sos-card__desc {
+            color: var(--color-text-light);
+            margin-bottom: 1.5rem;
+        }
+        
+        .sos-card__btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: none;
+            border: var(--border-medium);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.1s;
+            min-height: 48px;
+        }
+        
+        .sos-card__btn:hover {
+            background: var(--color-primary);
+        }
+        
+        /* Accordion */
+        .sos-accordion {
+            padding: 2rem 0 4rem;
+            border-top: var(--border-thick);
+        }
+        
+        .accordion {
+            max-width: 900px;
+            margin: 2rem auto 0;
+        }
+        
+        .accordion-item {
+            margin-bottom: 1rem;
+            border: var(--border-medium);
+            background: var(--color-surface);
+        }
+        
+        .accordion-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: background 0.1s;
+        }
+        
+        .accordion-header:hover {
+            background: var(--color-secondary);
+        }
+        
+        .accordion-header__icon {
+            font-size: 1.8rem;
+        }
+        
+        .accordion-header__title {
+            flex: 1;
+        }
+        
+        .accordion-header__arrow {
+            transition: transform 0.2s;
+        }
+        
+        .accordion-header.active .accordion-header__arrow {
+            transform: rotate(180deg);
+        }
+        
+        .accordion-content {
+            display: none;
+            padding: 0 1.5rem 1.5rem;
+            border-top: 1px dashed var(--color-border);
+        }
+        
+        .accordion-content.active {
+            display: block;
+        }
+        
+        .accordion-content__inner {
+            padding-top: 1.5rem;
+        }
+        
+        .accordion-content__solucao {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--color-emergency);
+            border: var(--border-medium);
+        }
+        
+        .accordion-content__alternativas {
+            margin-bottom: 1.5rem;
+        }
+        
+        .accordion-content__alternativas ul {
+            margin-top: 0.5rem;
+            padding-left: 1.5rem;
+        }
+        
+        .accordion-content__alternativas li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .accordion-content__prevencao {
+            padding: 1rem;
+            background: var(--color-secondary);
+            border-left: 4px solid var(--color-primary-dark);
+        }
+        
+        /* Kit de Emergência */
+        .sos-kit {
+            padding: 2rem 0 4rem;
+            border-top: var(--border-thick);
+        }
+        
+        .sos-kit__box {
+            background: var(--color-surface);
+            border: var(--border-thick);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-hard);
+        }
+        
+        .sos-kit__title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sos-kit__subtitle {
+            color: var(--color-text-light);
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+        
+        .sos-kit__items {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .kit-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border: var(--border-medium);
+            background: var(--color-bg);
+        }
+        
+        .kit-item__emoji {
+            font-size: 2.5rem;
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        .kit-item__content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .kit-item__content p {
+            color: var(--color-text-light);
+        }
+        
+        /* Modal SOS */
+        .modal__content--sos {
+            max-width: 700px;
+        }
+        
+        .sos-modal__header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: var(--border-medium);
+        }
+        
+        .sos-modal__emoji {
+            font-size: 3rem;
+        }
+        
+        .sos-modal__title {
+            font-size: 2rem;
+            flex: 1;
+            margin: 0;
+        }
+        
+        .sos-modal__solucao {
+            background: var(--color-emergency);
+            padding: 1.5rem;
+            border: var(--border-medium);
+            margin-bottom: 1.5rem;
+        }
+        
+        .sos-modal__solucao h3 {
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+        }
+        
+        .sos-modal__solucao p {
+            font-size: 1.2rem;
+        }
+        
+        .sos-modal__alternativas {
+            margin-bottom: 1.5rem;
+        }
+        
+        .sos-modal__alternativas h3 {
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+        
+        .sos-modal__alternativas ul {
+            padding-left: 1.5rem;
+        }
+        
+        .sos-modal__alternativas li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sos-modal__prevencao {
+            padding: 1rem;
+            background: var(--color-secondary);
+            border-left: 4px solid var(--color-primary-dark);
+        }
+        
+        .sos-modal__prevencao h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .sos-hero__title {
+                font-size: 2.5rem;
+            }
+            
+            .sos-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sos-search__input-wrapper {
+                flex-direction: column;
+            }
+            
+            .sos-kit__items {
+                grid-template-columns: 1fr;
+            }
+            
+            .accordion-header {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            
+            .accordion-header__icon {
+                font-size: 1.5rem;
+            }
+            
+            .sos-modal__header {
+                flex-wrap: wrap;
+            }
+            
+            .sos-modal__title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .sos-hero {
+                padding: 2rem 0;
+            }
+            
+            .sos-hero__title {
+                font-size: 2rem;
+            }
+            
+            .sos-hero__subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .sos-search__box {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</body>
+</html>

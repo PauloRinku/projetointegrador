@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Receitas · LeigosCookie</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🍪%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header__container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="LeigosCookie" width="48" height="48" style="object-fit: contain;">
+                <span class="logo__text">Leigos<span class="logo__accent">Cookie</span></span>
+            </a>
+            
+            <nav class="nav" id="mainNav">
+                <button class="nav__toggle" id="navToggle" aria-label="Menu">
+                    <span class="nav__hamburger"></span>
+                </button>
+                <ul class="nav__menu" id="navMenu">
+                    <li><a href="index.html" class="nav__link">Início</a></li>
+                    <li><a href="receitas.html" class="nav__link nav__link--active">Receitas</a></li>
+                    <li><a href="glossario.html" class="nav__link">Glossário</a></li>
+                    <li><a href="primeiros-socorros.html" class="nav__link nav__link--emergency">🚑 SOS</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- CABEÇALHO DA PÁGINA -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-header__title">🍳 Receitas Anti-Fome</h1>
+                <p class="page-header__subtitle">Todas testadas por alguém que já queimou miojo.</p>
+            </div>
+        </section>
+
+        <!-- FILTROS -->
+        <section class="filters">
+            <div class="container">
+                <div class="filters__bar">
+                    <div class="filters__group">
+                        <button class="filter-chip active" data-filter="todas">Todas</button>
+                        <button class="filter-chip" data-filter="5ingredientes">5 Ingredientes</button>
+                        <button class="filter-chip" data-filter="panelaunica">Panela Única</button>
+                        <button class="filter-chip" data-filter="impossivelerrar">Impossível de Errar</button>
+                    </div>
+                    
+                    <div class="filters__search">
+                        <input type="text" id="buscaReceita" class="filters__input" placeholder="Buscar receita...">
+                        <button id="btnBusca" class="btn btn--small">🔍</button>
+                    </div>
+                </div>
+                
+                <!-- FILTROS ATIVOS (TAGS) -->
+                <div class="filters__active" id="filtrosAtivos">
+                    <!-- Aparecem dinamicamente -->
+                </div>
+            </div>
+        </section>
+
+        <!-- MODO PÂNICO ALERTA (se ativado) -->
+        <div class="panic-mode-banner hidden" id="panicBanner">
+            <div class="container">
+                <span>🚨 MODO SOBREVIVÊNCIA ATIVADO 🚨</span>
+                <button id="desativarPanico" class="panic-mode-banner__close">✕</button>
+            </div>
+        </div>
+
+        <!-- GRID DE RECEITAS -->
+        <section class="recipes-grid-section">
+            <div class="container">
+                <div class="recipes-grid" id="recipesGrid">
+                    <!-- Carregado via JavaScript -->
+                </div>
+                
+                <!-- MENSAGEM "NENHUMA RECEITA" -->
+                <div class="no-results hidden" id="noResults">
+                    <p>😕 Nenhuma receita encontrada com esses filtros.</p>
+                    <button class="btn btn--outline" id="limparFiltros">Limpar Filtros</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TIMER GLOBAL (acessível em qualquer scroll) -->
+        <div class="timer-sticky" id="timerSticky">
+            <div class="timer-sticky__display" id="timerDisplay">00:00</div>
+            <div class="timer-sticky__controls">
+                <button class="timer-sticky__btn" id="timerIniciar" title="Iniciar">▶</button>
+                <button class="timer-sticky__btn" id="timerPausar" title="Pausar" disabled>⏸</button>
+                <button class="timer-sticky__btn" id="timerResetar" title="Resetar">⏹</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL DE RECEITA (expande ao clicar) -->
+    <div class="modal" id="receitaModal">
+        <div class="modal__overlay"></div>
+        <div class="modal__content">
+            <button class="modal__close" id="fecharModal">✕</button>
+            
+            <div class="modal__body" id="modalBody">
+                <!-- Conteúdo dinâmico da receita -->
+            </div>
+            
+            <!-- ALERTAS DA CHECKLIST -->
+            <div id="alertaChecklist" class="modal__alerta"></div>
+            
+            <!-- AÇÕES DA CHECKLIST -->
+            <div class="modal__actions">
+                <button class="btn btn--outline" id="resetChecklist">🔄 Resetar Checklist</button>
+                <button class="btn btn--primary" id="marcarTudo">✅ Marcar Tudo Como Feito</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <span class="footer__logo">LeigosCookie</span>
+                    <p class="footer__tagline">Todo mundo começa de algum lugar. O seu lugar é aqui.</p>
+                </div>
+                
+                <div class="footer__links">
+                    <a href="glossario.html">Glossário Visual</a>
+                    <a href="primeiros-socorros.html">Primeiros Socorros</a>
+                    <a href="#" id="limparHistorico">Limpar Histórico</a>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p>🍪 Feito para quem queima água.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/timer.js"></script>
+    <script src="js/checklist.js"></script>
+    <script>
+        // ============================================
+        // RECEITAS.HTML · LÓGICA ESPECÍFICA
+        // ============================================
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // ===== REFERÊNCIAS =====
+            const grid = document.getElementById('recipesGrid');
+            const modal = document.getElementById('receitaModal');
+            const modalBody = document.getElementById('modalBody');
+            const fecharModal = document.getElementById('fecharModal');
+            const overlay = document.querySelector('.modal__overlay');
+            const filtroChips = document.querySelectorAll('.filter-chip');
+            const buscaInput = document.getElementById('buscaReceita');
+            const btnBusca = document.getElementById('btnBusca');
+            const noResults = document.getElementById('noResults');
+            const limparFiltrosBtn = document.getElementById('limparFiltros');
+            const panicBanner = document.getElementById('panicBanner');
+            const desativarPanico = document.getElementById('desativarPanico');
+            
+            let filtroAtivo = 'todas';
+            let buscaTermo = '';
+            let receitaAtual = null;
+            let checklistInstance = null;
+            
+            // ===== MENU MOBILE =====
+            const navToggle = document.getElementById('navToggle');
+            const navMenu = document.getElementById('navMenu');
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                });
+            }
+            
+            // ===== VERIFICAR MODO PÂNICO =====
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('modo') === 'panico') {
+                panicBanner.classList.remove('hidden');
+                document.body.classList.add('modo-panico');
+                // Priorizar receitas "impossivelerrar"
+                filtroAtivo = 'impossivelerrar';
+                atualizarFiltrosVisuais();
+            }
+            
+            if (desativarPanico) {
+                desativarPanico.addEventListener('click', () => {
+                    panicBanner.classList.add('hidden');
+                    document.body.classList.remove('modo-panico');
+                    filtroAtivo = 'todas';
+                    atualizarFiltrosVisuais();
+                    filtrarReceitas();
+                });
+            }
+            
+            // Verificar categoria da URL
+            const categoriaUrl = urlParams.get('categoria');
+            if (categoriaUrl) {
+                filtroAtivo = categoriaUrl;
+                atualizarFiltrosVisuais();
+            }
+            
+            // ===== ATUALIZAR VISUAL DOS FILTROS =====
+            function atualizarFiltrosVisuais() {
+                filtroChips.forEach(chip => {
+                    chip.classList.remove('active');
+                    if (chip.dataset.filter === filtroAtivo) {
+                        chip.classList.add('active');
+                    }
+                });
+            }
+            
+            // ===== FILTRAR RECEITAS =====
+            function filtrarReceitas() {
+                let receitasFiltradas = [...receitas];
+                
+                // Filtro por categoria
+                if (filtroAtivo !== 'todas') {
+                    receitasFiltradas = receitasFiltradas.filter(r => 
+                        r.categoria.includes(filtroAtivo)
+                    );
+                }
+                
+                // Busca por texto
+                if (buscaTermo) {
+                    const termo = buscaTermo.toLowerCase();
+                    receitasFiltradas = receitasFiltradas.filter(r => 
+                        r.nome.toLowerCase().includes(termo) ||
+                        r.descricao.toLowerCase().includes(termo) ||
+                        r.ingredientes.some(i => i.nome.toLowerCase().includes(termo))
+                    );
+                }
+                
+                // Ordenar por dificuldade (se modo pânico)
+                if (document.body.classList.contains('modo-panico')) {
+                    receitasFiltradas.sort((a, b) => {
+                        const ordem = { 'Sobrevivente': 1, 'Iniciante': 2 };
+                        return (ordem[a.dificuldade] || 3) - (ordem[b.dificuldade] || 3);
+                    });
+                }
+                
+                renderizarGrid(receitasFiltradas);
+            }
+            
+            // ===== RENDERIZAR GRID =====
+            function renderizarGrid(receitasArray) {
+                if (receitasArray.length === 0) {
+                    grid.innerHTML = '';
+                    noResults.classList.remove('hidden');
+                    return;
+                }
+                
+                noResults.classList.add('hidden');
+                
+                grid.innerHTML = receitasArray.map(receita => {
+                    const progresso = calcularProgresso(receita);
+                    
+                    return `
+                        <div class="recipe-card" data-id="${receita.id}">
+                            <div class="recipe-card__header">
+                                <h3 class="recipe-card__title">${receita.nome}</h3>
+                                <span class="recipe-card__dificuldade badge ${receita.dificuldade === 'Sobrevivente' ? 'badge--easy' : ''}">
+                                    ${receita.dificuldade}
+                                </span>
+                            </div>
+                            
+                            <p class="recipe-card__desc">${receita.descricao}</p>
+                            
+                            <div class="recipe-card__meta">
+                                <span>⏱️ ${receita.tempoPreparo} min</span>
+                                <span>🍽️ ${receita.rendimento}</span>
+                            </div>
+                            
+                            <div class="recipe-card__ingredientes">
+                                ${receita.ingredientes.slice(0, 4).map(i => i.nome).join(' · ')}
+                                ${receita.ingredientes.length > 4 ? ' · ...' : ''}
+                            </div>
+                            
+                            ${progresso > 0 ? `
+                                <div class="recipe-card__progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-bar__fill" style="width: ${progresso}%"></div>
+                                    </div>
+                                    <span class="progress-text">${progresso}% concluído</span>
+                                </div>
+                            ` : ''}
+                            
+                            <div class="recipe-card__actions">
+                                <button class="btn btn--primary btn--small btn-ver-receita" data-id="${receita.id}">
+                                    Ver Receita
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                // Adicionar event listeners aos botões
+                document.querySelectorAll('.btn-ver-receita').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = parseInt(btn.dataset.id);
+                        abrirModal(id);
+                    });
+                });
+            }
+            
+            // ===== CALCULAR PROGRESSO =====
+            function calcularProgresso(receita) {
+                const totalItems = receita.ingredientes.length + receita.passos.length;
+                const concluidos = receita.ingredientes.filter(i => i.check).length + 
+                                   receita.passos.filter(p => p.check).length;
+                return totalItems > 0 ? Math.round((concluidos / totalItems) * 100) : 0;
+            }
+            
+            // ===== ABRIR MODAL =====
+            function abrirModal(id) {
+                receitaAtual = receitas.find(r => r.id === id);
+                if (!receitaAtual) return;
+                
+                // Construir HTML do modal
+                modalBody.innerHTML = `
+                    <h2 class="modal__title">${receitaAtual.nome}</h2>
+                    <p class="modal__desc">${receitaAtual.descricao}</p>
+                    
+                    <div class="modal__meta-grid">
+                        <div class="meta-card">
+                            <span class="meta-card__emoji">⏱️</span>
+                            <span class="meta-card__value">${receitaAtual.tempoPreparo} min</span>
+                            <span class="meta-card__label">Preparo</span>
+                        </div>
+                        <div class="meta-card">
+                            <span class="meta-card__emoji">🍽️</span>
+                            <span class="meta-card__value">${receitaAtual.rendimento}</span>
+                            <span class="meta-card__label">Rendimento</span>
+                        </div>
+                        <div class="meta-card">
+                            <span class="meta-card__emoji">📊</span>
+                            <span class="meta-card__value">${receitaAtual.dificuldade}</span>
+                            <span class="meta-card__label">Dificuldade</span>
+                        </div>
+                    </div>
+                    
+                    <div class="modal__section">
+                        <h3 class="modal__section-title">📝 Ingredientes</h3>
+                        <div class="checklist-container" id="checklistIngredientes"></div>
+                    </div>
+                    
+                    <div class="modal__section">
+                        <h3 class="modal__section-title">👨‍🍳 Modo de Preparo</h3>
+                        <div class="checklist-container" id="checklistPassos"></div>
+                    </div>
+                `;
+                
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                
+                // Inicializar checklist
+                if (checklistInstance) {
+                    // Limpar instância anterior
+                }
+                
+                checklistInstance = new ChecklistManagerModal(receitaAtual);
+            }
+            
+            // ===== CHECKLIST MANAGER PARA MODAL =====
+            class ChecklistManagerModal {
+                constructor(receita) {
+                    this.receita = receita;
+                    this.containerIngredientes = document.getElementById('checklistIngredientes');
+                    this.containerPassos = document.getElementById('checklistPassos');
+                    this.alertaContainer = document.getElementById('alertaChecklist');
+                    this.render();
+                    this.setupListeners();
+                }
+                
+                render() {
+                    // Ingredientes
+                    this.containerIngredientes.innerHTML = this.receita.ingredientes.map((ing, idx) => `
+                        <div class="checklist-item ${ing.check ? 'checked' : ''}">
+                            <input type="checkbox" id="modal_ing_${idx}" data-index="${idx}" data-tipo="ingrediente" ${ing.check ? 'checked' : ''}>
+                            <label for="modal_ing_${idx}">
+                                <span class="checklist-item__quantidade">${ing.quantidade}</span>
+                                <span class="checklist-item__nome">${ing.nome}</span>
+                            </label>
+                        </div>
+                    `).join('');
+                    
+                    // Passos
+                    this.containerPassos.innerHTML = this.receita.passos.map((passo, idx) => `
+                        <div class="checklist-item checklist-item--passo ${passo.check ? 'checked' : ''}">
+                            <input type="checkbox" id="modal_passo_${idx}" data-index="${idx}" data-tipo="passo" ${passo.check ? 'checked' : ''}>
+                            <label for="modal_passo_${idx}">
+                                <span class="checklist-item__ordem">${passo.ordem}.</span>
+                                <span class="checklist-item__texto">${passo.texto}</span>
+                                ${passo.timer > 0 ? `<span class="timer-badge" data-tempo="${passo.timer}">⏱️ ${this.formatarTempo(passo.timer)}</span>` : ''}
+                            </label>
+                            ${passo.dica ? `<div class="checklist-item__dica">💡 ${passo.dica}</div>` : ''}
+                        </div>
+                    `).join('');
+                }
+                
+                formatarTempo(s) {
+                    if (s < 60) return `${s}s`;
+                    return `${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}`;
+                }
+                
+                setupListeners() {
+                    document.querySelectorAll('#checklistIngredientes input, #checklistPassos input').forEach(cb => {
+                        cb.addEventListener('change', (e) => {
+                            const tipo = e.target.dataset.tipo;
+                            const idx = parseInt(e.target.dataset.index);
+                            this.handleCheck(tipo, idx, e.target.checked);
+                        });
+                    });
+                    
+                    // Timer badges
+                    document.querySelectorAll('.timer-badge').forEach(badge => {
+                        badge.addEventListener('click', () => {
+                            const tempo = parseInt(badge.dataset.tempo);
+                            if (tempo && window.timerGlobal) {
+                                window.timerGlobal.definirTimer(tempo);
+                            }
+                        });
+                    });
+                    
+                    // Botões do modal
+                    document.getElementById('resetChecklist')?.addEventListener('click', () => this.resetar());
+                    document.getElementById('marcarTudo')?.addEventListener('click', () => this.marcarTudo());
+                }
+                
+                handleCheck(tipo, idx, checked) {
+                    if (tipo === 'ingrediente') {
+                        this.receita.ingredientes[idx].check = checked;
+                    } else {
+                        // Validar ordem
+                        if (checked) {
+                            for (let i = 0; i < idx; i++) {
+                                if (!this.receita.passos[i].check) {
+                                    this.mostrarAlerta(`⚠️ Complete o passo ${i+1} primeiro: "${this.receita.passos[i].texto}"`, 'warning');
+                                    setTimeout(() => {
+                                        document.getElementById(`modal_passo_${idx}`).checked = false;
+                                    }, 100);
+                                    return;
+                                }
+                            }
+                        }
+                        this.receita.passos[idx].check = checked;
+                    }
+                    
+                    salvarProgresso();
+                    this.render();
+                    this.setupListeners();
+                    this.verificarConclusao();
+                    
+                    // Atualizar grid
+                    filtrarReceitas();
+                }
+                
+                mostrarAlerta(msg, tipo) {
+                    this.alertaContainer.innerHTML = `<div class="alerta alerta--${tipo}"><span>${msg}</span></div>`;
+                    setTimeout(() => this.alertaContainer.innerHTML = '', 4000);
+                }
+                
+                verificarConclusao() {
+                    const todosIng = this.receita.ingredientes.every(i => i.check);
+                    const todosPas = this.receita.passos.every(p => p.check);
+                    if (todosIng && todosPas) {
+                        this.mostrarAlerta('🎉 RECEITA CONCLUÍDA! Bom apetite!', 'success');
+                    }
+                }
+                
+                resetar() {
+                    this.receita.ingredientes.forEach(i => i.check = false);
+                    this.receita.passos.forEach(p => p.check = false);
+                    salvarProgresso();
+                    this.render();
+                    this.setupListeners();
+                    filtrarReceitas();
+                    this.mostrarAlerta('Checklist resetada!', 'warning');
+                }
+                
+                marcarTudo() {
+                    this.receita.ingredientes.forEach(i => i.check = true);
+                    this.receita.passos.forEach(p => p.check = true);
+                    salvarProgresso();
+                    this.render();
+                    this.setupListeners();
+                    filtrarReceitas();
+                    this.mostrarAlerta('Tudo marcado!', 'success');
+                }
+            }
+            
+            // ===== FECHAR MODAL =====
+            function fecharModalFn() {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                checklistInstance = null;
+            }
+            
+            fecharModal.addEventListener('click', fecharModalFn);
+            overlay.addEventListener('click', fecharModalFn);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    fecharModalFn();
+                }
+            });
+            
+            // ===== EVENT LISTENERS FILTROS =====
+            filtroChips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    filtroAtivo = chip.dataset.filter;
+                    atualizarFiltrosVisuais();
+                    filtrarReceitas();
+                });
+            });
+            
+            btnBusca.addEventListener('click', () => {
+                buscaTermo = buscaInput.value.trim();
+                filtrarReceitas();
+            });
+            
+            buscaInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    buscaTermo = buscaInput.value.trim();
+                    filtrarReceitas();
+                }
+            });
+            
+            limparFiltrosBtn.addEventListener('click', () => {
+                filtroAtivo = 'todas';
+                buscaTermo = '';
+                buscaInput.value = '';
+                atualizarFiltrosVisuais();
+                filtrarReceitas();
+            });
+            
+            // ===== LIMPAR HISTÓRICO =====
+            document.getElementById('limparHistorico')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (confirm('Resetar todo o progresso?')) {
+                    localStorage.clear();
+                    location.reload();
+                }
+            });
+            
+            // ===== INICIALIZAR =====
+            filtrarReceitas();
+            
+            // Timer global
+            if (typeof TimerManager !== 'undefined') {
+                window.timerGlobal = new TimerManager();
+            }
+        });
+        
+        // Salvar progresso (função global do data.js)
+        function salvarProgresso() {
+            localStorage.setItem('leigosCookie_receitas', JSON.stringify(receitas));
+        }
+    </script>
+    
+    <style>
+        /* Estilos adicionais para receitas.html */
+        .page-header {
+            padding: 3rem 0 1.5rem;
+            text-align: center;
+            border-bottom: var(--border-thick);
+        }
+        
+        .page-header__title {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .page-header__subtitle {
+            font-size: 1.25rem;
+            color: var(--color-text-light);
+        }
+        
+        .filters {
+            padding: 1.5rem 0;
+        }
+        
+        .filters__bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .filters__group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-chip {
+            padding: 0.75rem 1.5rem;
+            background: var(--color-surface);
+            border: var(--border-medium);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.1s;
+            min-height: 48px;
+        }
+        
+        .filter-chip:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .filter-chip.active {
+            background: var(--color-primary);
+            border-color: var(--color-border);
+        }
+        
+        .filters__search {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .filters__input {
+            padding: 0.75rem 1rem;
+            border: var(--border-medium);
+            font-size: 1rem;
+            min-width: 250px;
+        }
+        
+        .btn--small {
+            padding: 0.75rem 1.5rem;
+            min-height: 48px;
+        }
+        
+        .panic-mode-banner {
+            background: var(--color-emergency);
+            border: var(--border-thick);
+            padding: 0.75rem 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .panic-mode-banner .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .panic-mode-banner__close {
+            background: none;
+            border: var(--border-medium);
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 1.25rem;
+        }
+        
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            padding: 1.5rem 0 3rem;
+        }
+        
+        .recipe-card {
+            background: var(--color-surface);
+            border: var(--border-thick);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.15s;
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .recipe-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: var(--shadow-hard);
+        }
+        
+        .recipe-card__header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .recipe-card__title {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        
+        .recipe-card__desc {
+            color: var(--color-text-light);
+            margin-bottom: 1rem;
+            flex: 1;
+        }
+        
+        .recipe-card__meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+        }
+        
+        .recipe-card__ingredientes {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+            border-top: 1px dashed var(--color-border);
+            border-bottom: 1px dashed var(--color-border);
+        }
+        
+        .recipe-card__progress {
+            margin: 1rem 0;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: var(--color-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar__fill {
+            height: 100%;
+            background: var(--color-primary);
+        }
+        
+        .progress-text {
+            font-size: 0.8rem;
+            color: var(--color-text-light);
+            margin-top: 0.25rem;
+            display: inline-block;
+        }
+        
+        .recipe-card__actions {
+            margin-top: auto;
+        }
+        
+        .recipe-card__actions .btn {
+            width: 100%;
+            min-height: 48px;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+        
+        .no-results p {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+        }
+        
+        .modal.active {
+            display: block;
+        }
+        
+        .modal__overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+        }
+        
+        .modal__content {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            margin: 2rem auto;
+            background: var(--color-bg);
+            border: var(--border-thick);
+            overflow-y: auto;
+            padding: 2rem;
+            box-shadow: var(--shadow-hard);
+        }
+        
+        .modal__close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 48px;
+            height: 48px;
+            background: var(--color-surface);
+            border: var(--border-medium);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .modal__title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            padding-right: 3rem;
+        }
+        
+        .modal__desc {
+            font-size: 1.2rem;
+            color: var(--color-text-light);
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal__meta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .meta-card {
+            background: var(--color-surface);
+            border: var(--border-medium);
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .meta-card__emoji {
+            font-size: 2rem;
+            display: block;
+        }
+        
+        .meta-card__value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: block;
+        }
+        
+        .meta-card__label {
+            color: var(--color-text-light);
+        }
+        
+        .modal__section {
+            margin-bottom: 2rem;
+        }
+        
+        .modal__section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: var(--border-medium);
+            padding-bottom: 0.5rem;
+        }
+        
+        .modal__alerta {
+            margin: 1rem 0;
+        }
+        
+        .modal__actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            border-top: var(--border-medium);
+            padding-top: 1.5rem;
+        }
+        
+        /* TIMER STICKY */
+        .timer-sticky {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--color-surface);
+            border: var(--border-thick);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: var(--shadow-hard);
+            z-index: 500;
+        }
+        
+        .timer-sticky__display {
+            font-size: 2rem;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .timer-sticky__controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .timer-sticky__btn {
+            width: 48px;
+            height: 48px;
+            background: var(--color-surface);
+            border: var(--border-medium);
+            font-size: 1.25rem;
+            cursor: pointer;
+        }
+        
+        .timer-sticky__btn:hover {
+            background: var(--color-primary);
+        }
+        
+        @media (max-width: 768px) {
+            .filters__bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filters__search {
+                width: 100%;
+            }
+            
+            .filters__input {
+                flex: 1;
+                min-width: 0;
+            }
+            
+            .modal__meta-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal__content {
+                width: 95%;
+                padding: 1.5rem;
+                margin: 1rem auto;
+            }
+            
+            .timer-sticky {
+                bottom: 1rem;
+                right: 1rem;
+                padding: 0.75rem 1rem;
+            }
+            
+            .timer-sticky__display {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</body>
+</html>
